@@ -4,7 +4,10 @@ const genreModel = require("../models/genre");
 
 const getMovies = asyncHandler(async (req, res) => {
   const movies = await movieModel.find({});
-  res.json(movies);
+  if (movies) {
+    res.render("movie_list", { title: "Movie list", movies: movies });
+  }
+  res.status(404);
 });
 
 const getMovie = asyncHandler(async (req, res) => {
