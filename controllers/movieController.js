@@ -7,7 +7,6 @@ const getMovies = asyncHandler(async (req, res) => {
   if (movies) {
     res.render("movie_list", { title: "Movie list", movies: movies });
   }
-  res.status(404);
 });
 
 const getMovie = asyncHandler(async (req, res) => {
@@ -15,7 +14,6 @@ const getMovie = asyncHandler(async (req, res) => {
   if (movie) {
     res.render("movie_detail", { title: "Movie detail", movie: movie });
   }
-  res.status(404);
 });
 
 module.exports = {

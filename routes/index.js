@@ -3,7 +3,7 @@ const router = express.Router();
 const indexController = require("../controllers/indexController");
 const movieController = require("../controllers/movieController");
 const genreController = require("../controllers/genreController");
-const userController = require("../controllers/userController");
+
 /* GET home page. */
 router.get("/", indexController.index);
 
@@ -18,14 +18,5 @@ router.get("/genres", genreController.getGenres);
 
 // GET request for one genre
 router.get("/genre/:id", genreController.getGenre);
-
-// GET request for list of all users
-router.get("/users", userController.getUsers);
-
-// GET request for one user
-router.get("/user/:id", userController.getUser);
-
-// GET request for creating a test user
-router.get("/createuser", userController.createUser);
 
 module.exports = router;
