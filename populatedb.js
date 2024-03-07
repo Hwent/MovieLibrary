@@ -52,7 +52,7 @@ async function createMovies(page) {
       overview: movie.overview,
       release_date: movie.release_date,
       popularity: movie.popularity,
-      genre: movie.genre_ids,
+      genre_ids: movie.genre_ids,
     };
     const newMovie = new Movie(movieDetail);
     await newMovie.save();

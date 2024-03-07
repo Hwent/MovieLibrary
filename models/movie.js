@@ -8,7 +8,7 @@ const MovieSchema = new Schema({
   overview: { type: String, required: true },
   release_date: { type: Date, required: true },
   popularity: { type: Number, required: true },
-  genre: [{ type: Number, ref: "Genre" }],
+  genre_ids: [{ type: Number, ref: "Genre" }],
 });
 
 // Virtual for movie's URL
