@@ -5,12 +5,20 @@ const bcrypt = require("bcrypt");
 
 const getUsers = asyncHandler(async (req, res) => {
   const users = await userModel.find({});
-  res.json(users);
+  if (users) {
+    res.render("user_list", { title: "User list", users: users });
+  }
+
+  res.status(404);
 });
 
 const getUser = asyncHandler(async (req, res) => {
-  const user = await userModel.findById(req.params.id);
-  res.json(user);
+  const user = await userModel.findById(req.params.id).populate("movies");
+  if (user) {
+    res.render("user_detail", { title: "User details", user: user });
+  }
+
+  res.status(404);
 });
 
 //create a test user

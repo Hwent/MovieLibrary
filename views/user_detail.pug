@@ -1,0 +1,12 @@
+extends layout
+
+block content
+    h1= title
+    h2= user.username
+    p Favorite Movies
+    if user.movies.length>0
+        ul
+            each movie in user.movies
+                a(href=movie.url) #{movie.title}
+    else
+        p No favorite movies
