@@ -5,8 +5,12 @@ block content
     h2= movie.title
     p= movie.overview 
     p= movie.release_date
+    img(src='https://image.tmdb.org/t/p/w500' + movie.poster_path)
     if movie.genre_ids && movie.genre_ids.length
         ul 
             each genre in movie.genre_ids
                 li
                     a(href=genre.url)= genre.name
+    button.btn.btn-primary.mr-3 Add to Favorites
+    button.btn.btn-secondary.mr-3 Update
+    button.btn.btn-danger Delete

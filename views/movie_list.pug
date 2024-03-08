@@ -2,6 +2,7 @@ extends layout
 
 block content
     h1= title
+    p.font-weight-bold Total movies: #{movies.length}
     ul
         each movie in movies
             li

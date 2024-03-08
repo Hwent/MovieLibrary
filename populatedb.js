@@ -44,7 +44,7 @@ async function creatGenres() {
 }
 
 async function createMovies(page) {
-  const movies = await moviedb.moviePopular({ page });
+  const movies = await moviedb.moviePopular({ page: page });
   for (const movie of movies.results) {
     const movieDetail = {
       _id: movie.id,
@@ -52,6 +52,7 @@ async function createMovies(page) {
       overview: movie.overview,
       release_date: movie.release_date,
       popularity: movie.popularity,
+      poster_path: movie.poster_path,
       genre_ids: movie.genre_ids,
     };
     const newMovie = new Movie(movieDetail);
