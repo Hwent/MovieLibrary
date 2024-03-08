@@ -7,6 +7,8 @@ block content
     if user.movies.length>0
         ul
             each movie in user.movies
-                a(href=movie.url) #{movie.title}
+                li
+                    a(href=movie.url) #{movie.title} 
+
     else
         p No favorite movies

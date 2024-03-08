@@ -2,7 +2,9 @@ extends layout
 
 block content
     h1= title
-    ul
+    div.list-group
         each user in users
-            li
-                a(href=user.url) #{user.username}
+            a.list-group-item.list-group-item-action(href=user.url)
+                h5.list-group-item-heading.mr-3= user.username
+                input.list-group-item(type="radio" name="activateUser" value=user._id )
+    script(src="/javascripts/user_list.js")
