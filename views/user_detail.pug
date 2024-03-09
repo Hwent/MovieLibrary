@@ -11,7 +11,22 @@ block content
                     h5.list-group-item-heading.mr-3= movie.title
                     form(action="/users/"+user._id+"/movies/remove" method="post")
                         input(type="hidden" name="movieId" value=movie._id)
-
-                        button(type="submit" class="btn btn-danger") Remove
+                        button(type="submit" class="btn btn-danger btn-sm") Remove
     else
         p No favorite movies
+
+    br
+    form(action="/users/"+user._id+"/delete" method="post" onsubmit="return confirmDelete();")
+        input(type="hidden" id="password" name="password" value="")
+        button(type="submit" class="btn btn-danger") Delete User
+
+block scripts
+    script.
+        function confirmDelete() {
+            const password = prompt("Please enter your password to confirm deletion:");
+            if (password !== null) {
+                document.getElementById('password').value = password;
+                return true;
+            }
+            return false;
+        }

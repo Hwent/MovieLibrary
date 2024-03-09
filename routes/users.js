@@ -14,6 +14,9 @@ router.post("/addfavorite", userController.addFavorite);
 // GET request for one user
 router.get("/:id", userController.getUser);
 
+// POST request for deleting a user
+router.post("/:id/delete", userController.deleteUser);
+
 // POST request for removing a movie from favorites
 router.post("/:id/movies/remove", userController.removeFavorite);
 

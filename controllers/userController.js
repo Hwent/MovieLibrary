@@ -1,4 +1,5 @@
 const asyncHandler = require("express-async-handler");
+const bcrypt = require("bcrypt");
 const movieModel = require("../models/movie");
 const userModel = require("../models/user");
 
@@ -98,6 +99,19 @@ const removeFavorite = asyncHandler(async (req, res) => {
   res.redirect(user.url);
 });
 
+//Delete User POST
+const deleteUser = asyncHandler(async (req, res) => {
+  const user = await userModel.findById(req.params.id);
+  const passwordMatch = await bcrypt.compare(req.body.password, user.password);
+
+  if (passwordMatch) {
+    await userModel.deleteOne(user);
+    res.redirect("/users");
+  } else {
+    res.status(401).send("Incorrect password");
+  }
+});
+
 module.exports = {
   getUsers,
   getUser,
@@ -105,4 +119,5 @@ module.exports = {
   createUser_post,
   addFavorite,
   removeFavorite,
+  deleteUser,
 };
