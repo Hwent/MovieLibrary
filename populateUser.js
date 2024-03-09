@@ -5,6 +5,7 @@ console.log("generate fake user");
 const userArgs = process.argv.slice(2);
 const faker = require("faker");
 const User = require("./models/user");
+const Movie = require("./models/movie");
 const { MovieDb } = require("moviedb-promise");
 const dotenv = require("dotenv");
 dotenv.config();
@@ -27,10 +28,12 @@ async function main() {
 }
 
 async function fakeUser() {
+  const sampleMovies = await Movie.aggregate([{ $sample: { size: 5 } }]);
   const userDetail = {
     username: faker.internet.userName(),
     password: faker.internet.password(),
     email: faker.internet.email(),
+    movies: sampleMovies.map((movie) => movie._id),
   };
   const newUser = new User(userDetail);
   await newUser.save();

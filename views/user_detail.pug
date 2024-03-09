@@ -5,10 +5,13 @@ block content
     h2= user.username
     p Favorite Movies
     if user.movies.length>0
-        ul
+        div.list-group
             each movie in user.movies
-                li
-                    a(href=movie.url) #{movie.title} 
+                a.list-group-item.list-group-item-action(href=movie.url)
+                    h5.list-group-item-heading.mr-3= movie.title
+                    form(action="/users/"+user._id+"/movies/remove" method="post")
+                        input(type="hidden" name="movieId" value=movie._id)
 
+                        button(type="submit" class="btn btn-danger") Remove
     else
         p No favorite movies

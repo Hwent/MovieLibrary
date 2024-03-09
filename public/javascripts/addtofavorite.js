@@ -6,6 +6,10 @@ document
       alert("Please select a user.");
       return;
     }
+    if (!movieId) {
+      alert("Movie ID is not defined.");
+      return;
+    }
     fetch("/users/addfavorite", {
       method: "POST",
       headers: {
@@ -17,6 +21,11 @@ document
       }),
     })
       .then((response) => {
+        if (!response.ok) {
+          return response.json().then((error) => {
+            throw new Error(error.message);
+          });
+        }
         return response.json();
       })
       .then((data) => {
@@ -25,5 +34,8 @@ document
         } else {
           alert("Failed to add movie to favorites.");
         }
+      })
+      .catch((error) => {
+        alert(error.message);
       });
   });

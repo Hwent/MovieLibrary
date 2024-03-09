@@ -85,10 +85,24 @@ const addFavorite = asyncHandler(async (req, res) => {
   // Redirect to the user's page
 });
 
+//remove a movie from favorites
+const removeFavorite = asyncHandler(async (req, res) => {
+  const userId = req.params.id;
+  const movieId = req.body.movieId;
+
+  // Fetch the user from the database
+  const user = await userModel.findById(userId);
+
+  await user.movies.pull(movieId);
+  await user.save();
+  res.redirect(user.url);
+});
+
 module.exports = {
   getUsers,
   getUser,
   createUser_get,
   createUser_post,
   addFavorite,
+  removeFavorite,
 };
