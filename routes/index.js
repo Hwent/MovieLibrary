@@ -10,6 +10,9 @@ router.get("/", indexController.index);
 // GET request for list of all movies
 router.get("/movies", movieController.getMovies);
 
+// GET request for list of top rated movies
+router.get("/movies/toprated", movieController.getTopRated);
+
 // GET request for one movie
 router.get("/movie/:id", movieController.getMovie);
 

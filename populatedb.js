@@ -44,19 +44,36 @@ async function creatGenres() {
 }
 
 async function createMovies(page) {
-  const movies = await moviedb.moviePopular({ page: page });
-  for (const movie of movies.results) {
+  const popularMovie = await moviedb.moviePopular({ page: page });
+  for (const movie of popularMovie.results) {
     const movieDetail = {
       _id: movie.id,
       title: movie.title,
       overview: movie.overview,
       release_date: movie.release_date,
       popularity: movie.popularity,
+      vote_average: movie.vote_average,
       poster_path: movie.poster_path,
       genre_ids: movie.genre_ids,
     };
     const newMovie = new Movie(movieDetail);
     await newMovie.save();
+  }
+  const topRatedMovie = await moviedb.movieTopRated({ page: page });
+  for (const movie of topRatedMovie.results) {
+    const movieDetail = {
+      _id: movie.id,
+      title: movie.title,
+      overview: movie.overview,
+      release_date: movie.release_date,
+      popularity: movie.popularity,
+      vote_average: movie.vote_average,
+      poster_path: movie.poster_path,
+      genre_ids: movie.genre_ids,
+    };
+    await Movie.findOneAndUpdate({ _id: movie.id }, movieDetail, {
+      upsert: true,
+    });
   }
 }
 

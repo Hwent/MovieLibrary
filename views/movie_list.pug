@@ -1,9 +1,19 @@
 extends layout
 
 block content
-    h1= title
-    p.font-weight-bold Total movies: #{movies.length}
-    ul
-        each movie in movies
-            li
-                a(href=movie.url)= movie.title
+    .container
+        h1.display-4= title
+        p.font-weight-bold Total movies: #{movies.length}
+        hr
+        a(href="/movies/toprated") Top Rated 
+        hr
+        - var chunkSize = Math.ceil(movies.length / 4)
+        .row
+            - for(var i = 0; i < 4; i++)
+                .col
+                    ul.list-group
+                        - var start = i * chunkSize
+                        - var end = start + chunkSize
+                        each movie, index in movies.slice(start, end)
+                            li.list-group-item
+                                a(href=movie.url)= movie.title
