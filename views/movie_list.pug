@@ -21,9 +21,12 @@ block content
                                 p #{movie.title}
         hr
         .pagination
-            - if (page > 1)
-                a.page-link(href="/movies/" + category + "/" + (page - 1)) Previous
+            - if (category)
+                - if (page > 1)
+                    a.page-link(href="/movies/" + category + "/" + (page - 1)) Previous
+                - else
+                    a.page-link(href="" tabindex="-1") Previous
+                a.page-link(href="/movies/" + category + "/" + (page + 1)) Next
             - else
                 a.page-link(href="" tabindex="-1") Previous
-
-            a.page-link(href="/movies/" + category + "/" + (page + 1)) Next
+                a.page-link(href="" tabindex="-1") Next

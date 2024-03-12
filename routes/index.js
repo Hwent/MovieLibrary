@@ -8,7 +8,7 @@ const genreController = require("../controllers/genreController");
 router.get("/", indexController.index);
 
 // GET request for list of all movies
-router.get("/movies", movieController.getMovies);
+router.get("/movies/", movieController.getMovies);
 
 // GET request for list of top rated movies
 router.get("/movies/toprated/:page", movieController.getTopRated);

@@ -24,9 +24,14 @@ async function main() {
   await clear();
   console.log("Debug: Creating genres");
   await creatGenres();
-  console.log("Debug: Creating movies");
-  await createMovies(1);
-  await createMovies(2);
+  console.log("Debug: fetching popular movies");
+  for (let i = 1; i <= 5; i++) {
+    await createPopularMovies(i);
+  }
+  console.log("Debug: fetching top rated movies");
+  for (let i = 1; i <= 5; i++) {
+    await createTopRatedMovies(i);
+  }
   console.log("Debug: Closing mongoose");
   mongoose.connection.close();
 }
@@ -43,7 +48,7 @@ async function creatGenres() {
   }
 }
 
-async function createMovies(page) {
+async function createPopularMovies(page) {
   const popularMovie = await moviedb.moviePopular({ page: page });
   for (const movie of popularMovie.results) {
     const movieDetail = {
@@ -59,6 +64,9 @@ async function createMovies(page) {
     const newMovie = new Movie(movieDetail);
     await newMovie.save();
   }
+}
+
+async function createTopRatedMovies(page) {
   const topRatedMovie = await moviedb.movieTopRated({ page: page });
   for (const movie of topRatedMovie.results) {
     const movieDetail = {
