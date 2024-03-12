@@ -23,8 +23,16 @@ const getTopRated = asyncHandler(async (req, res) => {
   }
 });
 
+const getPopular = asyncHandler(async (req, res) => {
+  const movies = await movieModel.find({}).sort({ popularity: -1 });
+  if (movies) {
+    res.render("movie_list", { title: "Popular movies", movies: movies });
+  }
+});
+
 module.exports = {
   getMovies,
   getMovie,
   getTopRated,
+  getPopular,
 };

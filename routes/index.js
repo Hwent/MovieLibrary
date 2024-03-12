@@ -13,6 +13,9 @@ router.get("/movies", movieController.getMovies);
 // GET request for list of top rated movies
 router.get("/movies/toprated", movieController.getTopRated);
 
+// GET request for list of popular movies
+router.get("/movies/popular", movieController.getPopular);
+
 // GET request for one movie
 router.get("/movie/:id", movieController.getMovie);
 

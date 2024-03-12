@@ -6,6 +6,8 @@ block content
         p.font-weight-bold Total movies: #{movies.length}
         hr
         a(href="/movies/toprated") Top Rated 
+        |&nbsp;|&nbsp;
+        a(href="/movies/popular") Popular
         hr
         - var chunkSize = Math.ceil(movies.length / 4)
         .row
