@@ -19,6 +19,9 @@ router.get("/movies/popular/:page", movieController.getPopular);
 // GET request for one movie
 router.get("/movie/:id", movieController.getMovie);
 
+// POST request for adding a movie to favorites
+router.post("/movie/:id/add", movieController.addFavorite);
+
 // GET request for list of all genres
 router.get("/genres", genreController.getGenres);
 

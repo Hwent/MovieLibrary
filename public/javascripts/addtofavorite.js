@@ -1,32 +1,35 @@
 document
   .getElementById("add-to-favorites")
   .addEventListener("click", function () {
+    const addToFavoritesButton = document.getElementById("add-to-favorites");
+    const movieId = addToFavoritesButton.dataset.id;
     const activeUser = localStorage.getItem("selectedUser"); // Get the active user from localStorage
     if (!activeUser) {
       alert("Please select a user.");
       return;
     }
-    if (!movieId) {
-      alert("Movie ID is not defined.");
-      return;
-    }
-    fetch("/users/addfavorite", {
+    fetch(`/movie/${movieId}/add`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        movieId: movieId,
         userId: activeUser,
+        movieId: movieId,
       }),
     })
       .then((response) => {
-        if (!response.ok) {
-          return response.json().then((error) => {
-            throw new Error(error.message);
+        const contentType = response.headers.get("content-type");
+        if (contentType && contentType.indexOf("application/json") !== -1) {
+          return response.json().then((data) => {
+            if (!response.ok) {
+              throw new Error(data.message);
+            }
+            return data;
           });
+        } else {
+          throw new Error("Oops, we haven't got JSON!");
         }
-        return response.json();
       })
       .then((data) => {
         if (data.success) {

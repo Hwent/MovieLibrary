@@ -1,6 +1,8 @@
 const asyncHandler = require("express-async-handler");
 const movieModel = require("../models/movie");
 const genreModel = require("../models/genre");
+const userModel = require("../models/user");
+const { tr } = require("faker/lib/locales");
 const page_limit = 20;
 
 const getMovie = asyncHandler(async (req, res) => {
@@ -53,9 +55,38 @@ const getPopular = asyncHandler(async (req, res) => {
   }
 });
 
+//add a movie to favorites
+const addFavorite = asyncHandler(async (req, res) => {
+  try {
+    const userId = req.body.userId; // Get the user's ID from the request body
+    const movieId = req.body.movieId; // Get the movie's ID from the request body
+    //console.log(userId, movieId);
+    // Fetch the user from the database
+    const user = await userModel.findById(userId);
+
+    if (!user) {
+      res.status(404).send({ message: "User not found" });
+      return;
+    }
+    if (user.movies.includes(movieId)) {
+      res.status(400).send({ message: "Movie already in favorites" });
+      return;
+    }
+    // Add the movie to the user's favorites
+    user.movies.push(movieId);
+
+    // Save the user
+    await user.save();
+    res.json({ success: true });
+    // Redirect to the user's page
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+});
 module.exports = {
   getMovies,
   getMovie,
   getTopRated,
   getPopular,
+  addFavorite,
 };

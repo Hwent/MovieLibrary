@@ -12,9 +12,7 @@ block content
             each genre in movie.genre_ids
                 li
                     a(href=genre.url)= genre.name
-    button#add-to-favorites.btn.btn-primary.mr-3 Add to Favorites
+    button#add-to-favorites.btn.btn-primary.mr-3(data-id=movie.id) Add to Favorites    
     button.btn.btn-secondary.mr-3 Update
     button.btn.btn-danger Delete
-    script.
-        var movieId = !{JSON.stringify(movie._id)};
     script(src="/javascripts/addtofavorite.js")

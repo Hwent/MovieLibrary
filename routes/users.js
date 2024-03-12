@@ -8,9 +8,6 @@ router.get("/", userController.getUsers);
 router.get("/createuser", userController.createUser_get);
 router.post("/createuser", userController.createUser_post);
 
-// POST request for adding a movie to favorites
-router.post("/addfavorite", userController.addFavorite);
-
 // GET request for one user
 router.get("/:id", userController.getUser);
 
