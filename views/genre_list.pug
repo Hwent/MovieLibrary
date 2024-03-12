@@ -3,6 +3,13 @@ extends layout
 block content
     h1= title
     ul
-        each genre in genres
-            li
-                a(href=genre.url)= genre.name
+    - var chunkSize = Math.ceil(genres.length / 2)
+    .row
+        - for(var i = 0; i < 2; i++)
+            .col
+                ul.list-group
+                    - var start = i * chunkSize
+                    - var end = start + chunkSize
+                    each genre, index in genres.slice(start, end)
+                        li.list-group-item
+                            a(href=genre.url)= genre.name
