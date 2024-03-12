@@ -23,6 +23,7 @@ async function main() {
   console.log("Debug: About to connect");
   await mongoose.connect(mongoDB);
   await fakeUser();
+  await fakeUser();
   console.log("Debug: Closing mongoose");
   mongoose.connection.close();
 }

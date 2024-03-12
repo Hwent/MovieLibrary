@@ -20,9 +20,10 @@ main().catch((err) => console.log(err));
 async function main() {
   console.log("Debug: About to connect");
   await mongoose.connect(mongoDB);
+
   console.log("Debug: Clearing database");
   await clear();
-  console.log("Debug: Creating genres");
+  console.log("Debug: fetching genres");
   await creatGenres();
   console.log("Debug: fetching popular movies");
   for (let i = 1; i <= 5; i++) {
@@ -61,8 +62,9 @@ async function createPopularMovies(page) {
       poster_path: movie.poster_path,
       genre_ids: movie.genre_ids,
     };
-    const newMovie = new Movie(movieDetail);
-    await newMovie.save();
+    await Movie.findOneAndUpdate({ _id: movie.id }, movieDetail, {
+      upsert: true,
+    });
   }
 }
 
