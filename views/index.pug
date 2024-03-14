@@ -3,10 +3,9 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+  h5 Total <strong>#{moviesNum}</strong> movies, <strong>#{genresNum}</strong> genres, <strong>#{usersNum}</strong> users
   h2 Popular Movies
-  ul 
+  ul.list-group
     each movie in popularMovies
-      li
+      li.list-group-item
         a(href=`/movie/${movie._id}`)= movie.title
-
-
